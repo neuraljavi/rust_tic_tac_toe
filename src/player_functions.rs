@@ -1,4 +1,7 @@
 use std::io;
+use rand::Rng;
+
+use crate::board::Board;
 
 pub fn ask_num_players() -> i32 {
     loop {
@@ -17,4 +20,25 @@ pub fn ask_num_players() -> i32 {
         }
     }
 }
+
+pub fn two_players(board: &Board) -> i32 {
+    let mut players_turn = 1;
+    let mut player_won = 0;
+    while player_won == 0{
+        for (i, row) in board.iter().enumerate() {
+            for (j, &cell) in row.iter().enumerate() {
+                print!("{}{}", if cell == 0 { " " } else if cell == 1 { "O" } else { "X" }, if j < 2 { "|" } else { "" });
+            }
+            println!();
+            if i < 2 {
+                println!("------");
+            }
+        }
+    }
+    player_won
+}
+
+
+
+
 

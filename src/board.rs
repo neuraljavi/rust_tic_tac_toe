@@ -46,7 +46,11 @@ impl Board {
         }
     }
 
-    pub fn get_rows(&self) -> i32 {
+    pub fn get_num_rows(&self) -> i32 {
         self.rows
+    }
+
+    pub fn get_board(&self) -> Vec<Vec<i32>> {
+        self.board
     }
 }

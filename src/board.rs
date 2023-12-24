@@ -6,17 +6,11 @@ pub struct Board {
 
 impl Board {
     pub fn new(columns: i32, rows: i32) -> Self {
-        let mut board = Vec::new();
-        for _ in 0..rows {
-            let row = vec![0; columns as usize];
-            board.push(row);
-        }
-
-        Board {
-            columns,
-            rows,
-            board,
-        }
+        let board = (0..rows)
+            .map(|_| vec![0; columns as usize])
+            .collect();
+    
+        Board { columns, rows, board }
     }
 
     pub fn print(&self) {
@@ -40,9 +34,9 @@ impl Board {
         }
     }
 
-    pub fn insert(&mut self, player: i32, row: usize, column: usize) {
-        if row < self.rows as usize && column < self.columns as usize {
-            self.board[row][column] = player;
+    pub fn insert(&mut self, player: i32, row: i32, column: i32) {
+        if row < self.rows && column < self.columns {
+            self.board[row as usize][column as usize] = player;
         }
     }
 
@@ -50,7 +44,23 @@ impl Board {
         self.rows
     }
 
-    pub fn get_board(&self) -> Vec<Vec<i32>> {
-        self.board
+    pub fn get_num_columns(&self) -> i32 {
+        self.columns
+    }
+
+    pub fn obtain_value(&self, row: i32, column: i32) -> Option<i32> {
+        if row < self.board.len() as i32 && column < self.board[row as usize].len() as i32 {
+            Some(self.board[row as usize][column as usize])
+        } else {
+            None
+        }
+    }
+
+    pub fn check_occupied(&self, row: i32, column: i32) -> bool {
+        if self.board[row as usize][column as usize] == 0 {
+            false
+        } else {
+            true
+        }
     }
 }

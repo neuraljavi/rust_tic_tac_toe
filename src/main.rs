@@ -1,25 +1,24 @@
+// En main.rs (o lib.rs)
 mod board;
 mod player_functions;
 
 use crate::board::Board;
-use player_functions::{ask_num_players, two_players};
-
+use player_functions::{two_players, ask_num_players, single_player};
 
 fn main() {
     let filas = 3;
     let columnas = 3;
-    let board = Board::new(filas, columnas);
+    let mut board = Board::new(filas, columnas);
     let num_players = ask_num_players();
 
-    play(&num_players, &board)
+    play(&num_players, &mut board);
 }
 
-fn play(num_players: &i32, board: &Board) {
-    let player_won: i32;
+
+fn play(num_players: &i32, board: &mut Board) {
     if num_players.to_owned() == 1 {
-        player_won = two_players(&board);
+        single_player(board);
     } else {
-        player_won = two_players(&board);
+        two_players(board);
     }
-    println!("Congratulations! Player {} won!", player_won);
 }
